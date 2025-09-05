@@ -1,59 +1,49 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>For You ❤️</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-    }
-    .card {
-      background: #fff;
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-      text-align: center;
-      max-width: 420px;
-    }
-    h1 {
-      margin-top: 0;
-      font-size: clamp(28px, 6vw, 42px);
-      color: #ff477e;
-    }
-    p {
-      font-size: 18px;
-      margin: 1rem 0 2rem;
-      color: #444;
-    }
-    .btn {
-      padding: 12px 24px;
-      margin: 6px;
-      border: none;
-      border-radius: 999px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .yes {
-      background: #ff477e;
-      color: #fff;
-    }
-    .no {
-      background: #eee;
-      color: #333;
-      position: relative;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>For You ❤️</title>
+<style>
+  body {
+    margin:0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    text-align: center;
+    max-width: 420px;
+    z-index: 2;
+    position: relative;
+  }
+  h1 { margin-top:0; font-size: clamp(28px, 6vw, 42px); color:#ff477e; }
+  p { font-size: 18px; margin: 1rem 0 2rem; color: #444; }
+  .btn { padding:12px 24px; margin:6px; border:none; border-radius:999px; font-size:16px; font-weight: bold; cursor:pointer; transition: transform 0.2s; }
+  .yes { background:#ff477e; color:#fff; }
+  .no { background:#eee; color:#333; position: relative; }
+  #gallery img { width: 80px; margin: 6px; border-radius: 12px; }
+  .heart {
+    position: absolute; width: 24px; height: 24px; background: red; clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 50% 82%, 18% 100%, 0% 38%);
+    animation: float 4s linear infinite;
+    opacity: 0.8;
+  }
+  @keyframes float {
+    0% { transform: translateY(0) translateX(0); opacity:0.8; }
+    50% { opacity:1; }
+    100% { transform: translateY(-600px) translateX(50px); opacity:0; }
+  }
+</style>
 </head>
 <body>
-  <div id="locked" style="display:none; text-align:center; padding:2rem;">
+  <div id="locked" style="display:none; text-align:center; padding:2rem; z-index:2;">
     <h2>🔒 This page is private.</h2>
     <p>You don’t have permission to view it.</p>
   </div>
@@ -65,44 +55,63 @@
       <button class="btn yes" id="yes">Yes 💖</button>
       <button class="btn no" id="no">No 🙈</button>
     </div>
+    <div id="gallery">
+      <img src="https://via.placeholder.com/80" alt="pic1">
+      <img src="https://via.placeholder.com/80" alt="pic2">
+      <img src="https://via.placeholder.com/80" alt="pic3">
+    </div>
+    <audio id="music" autoplay loop>
+      <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+    </audio>
   </div>
 
-  <!-- Confetti library -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-  <script>
-    // === TOKEN CHECK ===
-    const VALID_TOKENS = new Set(["6may"]); // Password is the date: 6 May
-    const url = new URL(window.location.href);
-    const token = url.searchParams.get("t");
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script>
+  // TOKEN CHECK
+  const VALID_TOKENS = new Set(["6may"]);
+  const url = new URL(window.location.href);
+  const token = url.searchParams.get("t");
 
-    if (token && VALID_TOKENS.has(token)) {
-      document.getElementById("main").style.display = "block";
-    } else {
-      document.getElementById("locked").style.display = "block";
-    }
+  if (token && VALID_TOKENS.has(token)) {
+    document.getElementById("main").style.display = "block";
+  } else {
+    document.getElementById("locked").style.display = "block";
+  }
 
-    // === PERSONALIZATION via ?name=... ===
-    const nameParam = url.searchParams.get("name");
-    if (nameParam) document.getElementById("name").textContent = nameParam;
+  // NAME PERSONALIZATION
+  const nameParam = url.searchParams.get("name");
+  if (nameParam) document.getElementById("name").textContent = nameParam;
 
-    // === NO button dodges ===
-    const no = document.getElementById("no");
-    if (no) {
-      no.addEventListener("mouseenter", () => {
-        no.style.transform = `translate(${(Math.random()*200-100)}px, ${(Math.random()*150-75)}px)`;
-      });
-    }
+  // NO BUTTON DODGES
+  const no = document.getElementById("no");
+  if (no) {
+    no.addEventListener("mouseenter", () => {
+      no.style.transform = `translate(${(Math.random()*200-100)}px, ${(Math.random()*150-75)}px)`;
+    });
+  }
 
-    // === YES button confetti ===
-    const yes = document.getElementById("yes");
-    if (yes) {
-      yes.addEventListener("click", () => {
-        confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } });
-        setTimeout(() => {
-          alert("Thank you 💖 I’ll make it up to you properly!");
-        }, 500);
-      });
-    }
-  </script>
+  // YES BUTTON CONFETTI
+  const yes = document.getElementById("yes");
+  if (yes) {
+    yes.addEventListener("click", () => {
+      confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } });
+      setTimeout(() => {
+        alert("Thank you 💖 I’ll make it up to you properly!");
+      }, 500);
+    });
+  }
+
+  // FLOATING HEARTS
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.animationDuration = 3 + Math.random()*3 + "s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(), 4000);
+  }
+  setInterval(createHeart, 500);
+</script>
 </body>
 </html>
+
