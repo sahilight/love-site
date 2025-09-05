@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>For You ❤️</title>
+<title>For My Love ❤️</title>
 <style>
   body {
     margin:0;
@@ -20,7 +20,7 @@
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     text-align: center;
-    max-width: 420px;
+    max-width: 500px;
     z-index: 2;
     position: relative;
   }
@@ -40,77 +40,74 @@
     50% { opacity:1; }
     100% { transform: translateY(-600px) translateX(50px); opacity:0; }
   }
+  ul { text-align:left; margin: 0 0 1rem 20px; }
 </style>
 </head>
 <body>
-  <div id="locked" style="display:none; text-align:center; padding:2rem; z-index:2;">
-    <h2>🔒 This page is private.</h2>
-    <p>You don’t have permission to view it.</p>
-  </div>
+<div id="locked" style="display:none; text-align:center; padding:2rem; z-index:2;">
+  <h2>🔒 This page is private.</h2>
+  <p>You don’t have permission to view it.</p>
+</div>
 
-  <div id="main" class="card" style="display:none;">
-    <h1 id="title">Hey <span id="name">Soni</span>…</h1>
-    <p>I messed up, and I want to make it right.<br>Will you forgive me?</p>
-    <div>
-      <button class="btn yes" id="yes">Yes 💖</button>
-      <button class="btn no" id="no">No 🙈</button>
-    </div>
-    <div id="gallery">
-      <img src="https://via.placeholder.com/80" alt="pic1">
-      <img src="https://via.placeholder.com/80" alt="pic2">
-      <img src="https://via.placeholder.com/80" alt="pic3">
-    </div>
-    <audio id="music" autoplay loop>
-      <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-    </audio>
+<div id="main" class="card" style="display:none;">
+  <h1 id="title">Hey <span id="name">Soni</span>…</h1>
+  <p>Every day with you is a gift. You make my life brighter and happier, and I’m so grateful to have you in it. 💖</p>
+  <ul>
+    <li>Your smile makes my day.</li>
+    <li>The way you care shows how amazing you are.</li>
+    <li>Our little adventures together are my favorite moments.</li>
+    <li>You support me in everything I do.</li>
+    <li>I love how we laugh at the silliest things.</li>
+  </ul>
+  <div>
+    <button class="btn yes" id="yes">Yes 💖</button>
   </div>
+  <div id="gallery">
+    <img src="https://via.placeholder.com/80" alt="memory1">
+    <img src="https://via.placeholder.com/80" alt="memory2">
+    <img src="https://via.placeholder.com/80" alt="memory3">
+  </div>
+  <audio id="music" autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+  </audio>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <script>
-  // TOKEN CHECK
+  // PASSWORD CHECK
   const VALID_TOKENS = new Set(["6may"]);
   const url = new URL(window.location.href);
   const token = url.searchParams.get("t");
 
-  if (token && VALID_TOKENS.has(token)) {
+  if(token && VALID_TOKENS.has(token)){
     document.getElementById("main").style.display = "block";
   } else {
     document.getElementById("locked").style.display = "block";
   }
 
-  // NAME PERSONALIZATION
+  // PERSONALIZE NAME
   const nameParam = url.searchParams.get("name");
-  if (nameParam) document.getElementById("name").textContent = nameParam;
-
-  // NO BUTTON DODGES
-  const no = document.getElementById("no");
-  if (no) {
-    no.addEventListener("mouseenter", () => {
-      no.style.transform = `translate(${(Math.random()*200-100)}px, ${(Math.random()*150-75)}px)`;
-    });
-  }
+  if(nameParam) document.getElementById("name").textContent = nameParam;
 
   // YES BUTTON CONFETTI
   const yes = document.getElementById("yes");
-  if (yes) {
-    yes.addEventListener("click", () => {
-      confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } });
-      setTimeout(() => {
-        alert("Thank you 💖 I’ll make it up to you properly!");
-      }, 500);
+  if(yes){
+    yes.addEventListener("click",()=>{
+      confetti({particleCount: 250, spread:100, origin:{y:0.6}});
+      setTimeout(()=>{alert("Thank you for being amazing 💖")},500);
     });
   }
 
   // FLOATING HEARTS
-  function createHeart() {
+  function createHeart(){
     const heart = document.createElement("div");
     heart.className = "heart";
-    heart.style.left = Math.random()*100 + "vw";
+    heart.style.left = Math.random()*100+"vw";
     heart.style.animationDuration = 3 + Math.random()*3 + "s";
     document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(), 4000);
+    setTimeout(()=>heart.remove(),4000);
   }
-  setInterval(createHeart, 500);
+  setInterval(createHeart,500);
 </script>
 </body>
 </html>
