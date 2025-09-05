@@ -59,7 +59,7 @@
   </div>
 
   <div id="main" class="card" style="display:none;">
-    <h1 id="title">Hey <span id="name">You</span>…</h1>
+    <h1 id="title">Hey <span id="name">Soni</span>…</h1>
     <p>I messed up, and I want to make it right.<br>Will you forgive me?</p>
     <div>
       <button class="btn yes" id="yes">Yes 💖</button>
@@ -71,7 +71,7 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
   <script>
     // === TOKEN CHECK ===
-    const VALID_TOKENS = new Set(["my-secret-token-123"]); // change this
+    const VALID_TOKENS = new Set(["6may"]); // Password is the date: 6 May
     const url = new URL(window.location.href);
     const token = url.searchParams.get("t");
 
@@ -81,9 +81,9 @@
       document.getElementById("locked").style.display = "block";
     }
 
-    // === PERSONALIZATION via ?name=Kuchu ===
-    const name = url.searchParams.get("name");
-    if (name) document.getElementById("name").textContent = name;
+    // === PERSONALIZATION via ?name=... ===
+    const nameParam = url.searchParams.get("name");
+    if (nameParam) document.getElementById("name").textContent = nameParam;
 
     // === NO button dodges ===
     const no = document.getElementById("no");
