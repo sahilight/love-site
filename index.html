@@ -1,124 +1,112 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>For You — A Surprise ❤️</title>
-<style>
-  :root{
-    --pink:#ff477e;
-    --card:#fff;
-    --muted:#666;
-  }
-  html,body{height:100%;margin:0;font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
-  body{
-    background: linear-gradient(135deg,#ffd1dc 0%, #ffe6f0 50%, #fff6f9 100%);
-    display:grid;place-items:center;overflow:hidden;
-  }
-  .wrap{width:min(940px,94%); max-width:760px; position:relative; z-index:5;}
-  .card{background:var(--card); border-radius:20px; padding:28px; box-shadow:0 20px 50px rgba(0,0,0,0.12); text-align:center; min-height:260px;}
-  h1{margin:0 0 8px; font-size:clamp(24px,5.5vw,38px); color:var(--pink)}
-  p{margin:0 0 16px; color:var(--muted); line-height:1.4}
-  .buttons{margin-top:12px}
-  .btn{display:inline-block; padding:12px 20px; margin:8px; border-radius:999px; border:0; cursor:pointer; font-weight:700; font-size:16px;}
-  .btn.primary{background:var(--pink); color:#fff;}
-  .btn.ghost{background:#f1f1f1; color:#333;}
-  .step { display:none; opacity:0; transition: opacity .35s ease; }
-  .step.active { display:block; opacity:1; }
-  .compliment{ font-size:18px; margin:12px 0; color:#333; opacity:0; transform:translateY(10px); transition: all .45s;}
-  .compliment.show{ opacity:1; transform:translateY(0); }
-  .image-box img{max-width:80%; border-radius:12px; margin:12px auto;}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Soni ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fbeff5;
+      text-align: center;
+    }
+    .page {
+      display: none;
+      padding: 50px 20px;
+    }
+    .active {
+      display: block;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .yes { background: #ff69b4; color: white; }
+    .no { background: #ccc; }
+    .hmm { background: #f0c040; }
+    #compliments p {
+      font-size: 18px;
+      margin: 15px 0;
+      display: none;
+    }
+    #photos {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      margin-top: 20px;
+      padding: 10px;
+    }
+    #photos img {
+      width: 300px;
+      height: auto;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+  </style>
 </head>
 <body>
-  <div class="wrap">
-    <div id="mainCard" class="card">
-      <!-- Step 1 -->
-      <div id="step1" class="step active">
-        <h1>Hey <span id="name1">Soni</span> 💌</h1>
-        <p>Do you want to open this tiny secret I made just for you?</p>
-        <div class="buttons">
-          <button id="openYes" class="btn primary">Yes, open it ✨</button>
-        </div>
-      </div>
 
-      <!-- Step 2 -->
-      <div id="step2" class="step">
-        <h1>Do you trust me?</h1>
-        <div class="buttons">
-          <button id="trustYes" class="btn primary">I trust you 💖</button>
-        </div>
-      </div>
+  <!-- Page 1 -->
+  <div id="page1" class="page active">
+    <h1>Do you trust me? ❤️</h1>
+    <button class="yes" onclick="nextPage('page2')">Yes</button>
+    <button class="no" onclick="alert('Arre Soni, at least give it a try 😜')">No</button>
+    <button class="hmm" onclick="alert('Thinking? Hmm… but I know you do! 😉')">Hmm</button>
+  </div>
 
-      <!-- Step 3 -->
-      <div id="step3" class="step">
-        <h1>Okay — here we go!</h1>
-        <p>These are all true — one at a time 💘</p>
-        <div id="compliments">
-          <div class="compliment" id="c1">Grishma... tuza naav jastach hot aahe, jase kahi unhalaat pan ek gaarva asava.</div>
-          <div class="compliment" id="c2">Pan honestly, tuza ek smile disla ki, mala sagle seasons tumchya madhyech disayla lagtat.</div>
-          <div class="compliment" id="c3">Tu boltatana jehva tuzya baal ghyaatat padtat na... te moment direct heart var jaun lagtat.</div>
-          <div class="compliment" id="c4">Aso kaahi pan, tu jyaveli nazar karte na, asa vatata ki time slow zhala.</div>
-          <div class="compliment" id="c5">Tu already mazya thoughts madhe queen banun basliyes 👑</div>
-        </div>
-        <div class="buttons">
-          <button id="more" class="btn ghost">Show more</button>
-        </div>
-      </div>
+  <!-- Page 2 -->
+  <div id="page2" class="page">
+    <h2>Okay, let me show you something special 💖</h2>
+    <button class="yes" onclick="startCompliments()">Go Ahead</button>
+  </div>
 
-      <!-- Step 4 -->
-      <div id="step4" class="step">
-        <h1>You're my everything ❤️</h1>
-        <p>I’m grateful for you every day. Thank you for being you.</p>
-        <div class="image-box">
-          <img src="https://raw.githubusercontent.com/sahilight/love-site/3bfea011c1e057740e6c553c1d3003e5f0a8d7cb/photo_2025-09-05_23-52-53.jpg" alt="Memory 1">
-          <img src="https://raw.githubusercontent.com/sahilight/love-site/3bfea011c1e057740e6c553c1d3003e5f0a8d7cb/photo_2025-09-05_23-52-57.jpg" alt="Memory 2">
-          <img src="https://raw.githubusercontent.com/sahilight/love-site/3bfea011c1e057740e6c553c1d3003e5f0a8d7cb/photo_2025-09-05_23-53-35.jpg" alt="Memory 3">
-        </div>
-      </div>
+  <!-- Page 3 (Compliments + Photos) -->
+  <div id="page3" class="page">
+    <h2>For You, Soni 💕</h2>
+    <div id="compliments">
+      <p>Grishma... tuza naav jastach hot aahe, jase kahi unhalaat pan ek gaarva asava.</p>
+      <p>Pan honestly, tuza ek smile disla ki, mala sagle seasons tumchya madhyech disayla lagtat.</p>
+      <p>Tuzya boltatana jehva tuzya baal ghyaatat padtat... that’s my fav moment. ❤️</p>
     </div>
+    <button class="yes" onclick="showNextCompliment()">Show more</button>
 
-    <!-- Music Control -->
-    <div style="text-align:center; margin-top:10px;">
-      <button id="playPause">⏯ Play / Pause Music</button>
+    <div id="photos">
+      <img src="https://raw.githubusercontent.com/sahilight/love-site/3bfea011c1e057740e6c553c1d3003e5f0a8d7cb/photo_2025-09-05_23-52-53.jpg" alt="Memory 1">
+      <img src="https://raw.githubusercontent.com/sahilight/love-site/3bfea011c1e057740e6c553c1d3003e5f0a8d7cb/photo_2025-09-05_23-52-57.jpg" alt="Memory 2">
+      <img src="https://raw.githubusercontent.com/sahilight/love-site/3bfea011c1e057740e6c553c1d3003e5f0a8d7cb/photo_2025-09-05_23-53-35.jpg" alt="Memory 3">
     </div>
   </div>
 
-  <!-- Background audio -->
-  <audio id="bgMusic" loop preload="auto">
+  <!-- Music -->
+  <audio id="bg-music" loop>
     <source src="https://raw.githubusercontent.com/sahilight/love-site/9f802e7616a8b6df7956b38b4ad4900dd1642f45/Stephen_Sanchez_-_Until_I_Found_You.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    const steps = ["step1","step2","step3","step4"];
-    function showStep(n){
-      steps.forEach(id => document.getElementById(id).classList.remove("active"));
-      document.getElementById("step"+n).classList.add("active");
+    function nextPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
     }
-    document.getElementById("openYes").onclick = ()=>showStep(2);
-    document.getElementById("trustYes").onclick = ()=>{
-      bgMusic.play().catch(()=>{});
-      showStep(3);
-      showCompliment(0);
-    };
-    let compIndex = 0;
-    function showCompliment(i){
-      document.querySelectorAll('.compliment').forEach(c=>c.classList.remove('show'));
-      if(i<document.querySelectorAll('.compliment').length)
-        document.querySelectorAll('.compliment')[i].classList.add('show');
+
+    function startCompliments() {
+      nextPage('page3');
+      document.getElementById("bg-music").play();
     }
-    document.getElementById("more").onclick = ()=>{
-      compIndex++;
-      if(compIndex>=document.querySelectorAll('.compliment').length){
-        showStep(4);
-      } else {
-        showCompliment(compIndex);
+
+    let current = 0;
+    function showNextCompliment() {
+      const compliments = document.querySelectorAll("#compliments p");
+      if (current < compliments.length) {
+        compliments[current].style.display = "block";
+        current++;
       }
-    };
-    const bgMusic = document.getElementById('bgMusic');
-    document.getElementById("playPause").onclick = ()=>{
-      if(bgMusic.paused) bgMusic.play(); else bgMusic.pause();
-    };
+    }
   </script>
+
 </body>
 </html>
