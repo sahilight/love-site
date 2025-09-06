@@ -2,111 +2,128 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For Soni ❤️</title>
+  <title>For You ❤️</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fbeff5;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      color: #fff;
       text-align: center;
+      overflow-x: hidden;
     }
-    .page {
+    .screen {
       display: none;
-      padding: 50px 20px;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
     }
-    .active {
-      display: block;
-    }
+    .active { display: flex; }
     button {
-      padding: 10px 20px;
-      margin: 10px;
+      background: #fff;
+      color: #ee9ca7;
       border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    .yes { background: #ff69b4; color: white; }
-    .no { background: #ccc; }
-    .hmm { background: #f0c040; }
-    #compliments p {
+      padding: 12px 25px;
+      margin: 10px;
+      border-radius: 30px;
       font-size: 18px;
-      margin: 15px 0;
-      display: none;
+      cursor: pointer;
+      transition: 0.3s;
     }
-    #photos {
+    button:hover { transform: scale(1.1); }
+    .compliment {
+      font-size: 24px;
+      margin: 20px 0;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .images {
       display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      flex-wrap: nowrap;
       overflow-x: auto;
-      gap: 10px;
-      margin-top: 20px;
-      padding: 10px;
     }
-    #photos img {
-      width: 300px;
+    .images img {
+      width: 250px;
       height: auto;
-      border-radius: 12px;
-      flex-shrink: 0;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.4s;
     }
+    .images img:hover {
+      transform: scale(1.1);
+    }
+    audio { margin-top: 20px; }
   </style>
 </head>
 <body>
 
-  <!-- Page 1 -->
-  <div id="page1" class="page active">
-    <h1>Do you trust me? ❤️</h1>
-    <button class="yes" onclick="nextPage('page2')">Yes</button>
-    <button class="no" onclick="alert('Arre Soni, at least give it a try 😜')">No</button>
-    <button class="hmm" onclick="alert('Thinking? Hmm… but I know you do! 😉')">Hmm</button>
-  </div>
-
-  <!-- Page 2 -->
-  <div id="page2" class="page">
-    <h2>Okay, let me show you something special 💖</h2>
-    <button class="yes" onclick="startCompliments()">Go Ahead</button>
-  </div>
-
-  <!-- Page 3 (Compliments + Photos) -->
-  <div id="page3" class="page">
-    <h2>For You, Soni 💕</h2>
-    <div id="compliments">
-      <p>Grishma... tuza naav jastach hot aahe, jase kahi unhalaat pan ek gaarva asava.</p>
-      <p>Pan honestly, tuza ek smile disla ki, mala sagle seasons tumchya madhyech disayla lagtat.</p>
-      <p>Tuzya boltatana jehva tuzya baal ghyaatat padtat... that’s my fav moment. ❤️</p>
+  <!-- Screen 1: Entry -->
+  <div class="screen active" id="screen1">
+    <h1>Do you trust me? 💕</h1>
+    <div>
+      <button onclick="nextScreen('screen2')">Yes</button>
+      <button onclick="alert('Arre… trust kar na! 😘')">No</button>
     </div>
-    <button class="yes" onclick="showNextCompliment()">Show more</button>
+  </div>
 
-    <div id="photos">
+  <!-- Screen 2: Compliments + Images -->
+  <div class="screen" id="screen2">
+    <h2>Some words for you ❤️</h2>
+    <div id="compliments"></div>
+    <div class="images">
       <img src="https://raw.githubusercontent.com/sahilight/love-site/3bfea011c1e057740e6c553c1d3003e5f0a8d7cb/photo_2025-09-05_23-52-53.jpg" alt="Memory 1">
       <img src="https://raw.githubusercontent.com/sahilight/love-site/3bfea011c1e057740e6c553c1d3003e5f0a8d7cb/photo_2025-09-05_23-52-57.jpg" alt="Memory 2">
       <img src="https://raw.githubusercontent.com/sahilight/love-site/3bfea011c1e057740e6c553c1d3003e5f0a8d7cb/photo_2025-09-05_23-53-35.jpg" alt="Memory 3">
     </div>
+    <audio controls autoplay loop>
+      <source src="https://raw.githubusercontent.com/sahilight/love-site/9f802e7616a8b6df7956b38b4ad4900dd1642f45/Stephen_Sanchez_-_Until_I_Found_You.mp3" type="audio/mpeg">
+    </audio>
   </div>
 
-  <!-- Music -->
-  <audio id="bg-music" loop>
-    <source src="https://raw.githubusercontent.com/sahilight/love-site/9f802e7616a8b6df7956b38b4ad4900dd1642f45/Stephen_Sanchez_-_Until_I_Found_You.mp3" type="audio/mpeg">
-  </audio>
+  <!-- Screen 3: Closing -->
+  <div class="screen" id="screen3">
+    <h1>Thanks for being in my life ❤️</h1>
+    <p>You’re my reason to smile, always. 🌹</p>
+  </div>
 
   <script>
-    function nextPage(id) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-
-    function startCompliments() {
-      nextPage('page3');
-      document.getElementById("bg-music").play();
-    }
-
-    let current = 0;
-    function showNextCompliment() {
-      const compliments = document.querySelectorAll("#compliments p");
-      if (current < compliments.length) {
-        compliments[current].style.display = "block";
-        current++;
+    const compliments = [
+      "Grishma... tuza naav jastach hot aahe, jase kahi unhalaat pan ek gaarva asava.",
+      "Pan honestly, tuza ek smile disla ki, mala sagle seasons tumchya madhyech disayla lagtat.",
+      "Tu boltatana jehva tuzya baal ghyaatat padtat na... te pahun mala full filmy feel yete.",
+      "Tuzya sobat aslo ki, sagla world light watto.",
+      "Tu ahe mhun sagla life ekdam mast feel hota ❤️."
+    ];
+    let i = 0;
+    function showCompliments() {
+      const container = document.getElementById("compliments");
+      if (i < compliments.length) {
+        const p = document.createElement("p");
+        p.className = "compliment";
+        p.style.animationDelay = (i * 2) + "s";
+        p.textContent = compliments[i];
+        container.appendChild(p);
+        i++;
+        setTimeout(showCompliments, 2500);
+      } else {
+        // move to final screen after last compliment
+        setTimeout(() => nextScreen('screen3'), 3000);
       }
     }
+    function nextScreen(id) {
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      if (id === "screen2") showCompliments();
+    }
   </script>
-
 </body>
 </html>
